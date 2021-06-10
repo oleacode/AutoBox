@@ -1,0 +1,17 @@
+{
+  "settings": {
+    "loggerFormat": "tiny",
+    "templateEngine": "twig",
+    "session": {
+      "store": "@foal/typeorm"
+    }
+  },
+  "database": {
+    "type": "mysql",
+    "database": "autobox",
+    "username": "root",
+    "password": "",
+    "host": "localhost",
+    "port": 3306
+  }
+}

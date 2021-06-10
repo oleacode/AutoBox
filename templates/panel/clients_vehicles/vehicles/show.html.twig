@@ -1,0 +1,92 @@
+{% extends '../../layout_base.html.twig' %}
+{% block title %}{{ vehicle.number_plate }}{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="/css/tables.css">
+{% endblock %}
+{% block body %}
+    <div class="table-responsive">
+        <div class="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
+            <form action="." method="get">
+                <div class="input-icon">
+                        <span class="input-icon-addon">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="10" cy="10" r="7"></circle><line x1="21" y1="21" x2="15" y2="15"></line></svg>
+                        </span>
+                    <input type="text" class="form-control" placeholder="Search…" aria-label="Search in website">
+                </div>
+            </form>
+        </div>
+    </div>
+        <table class="table card-table table-vcenter text-nowrap datatable">
+            <thead>
+                <tr>
+                    <th>Matrícula</th>
+                    <th>Kilometraje</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Titular</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ vehicle.number_plate }}</td>
+                    <td>{{ vehicle.kms }}</td>
+                    <td>{{ vehicle.mark }}</td>
+                    <td>{{ vehicle.model }}</td>
+                    <td>
+                        {% for client in vehicle.clientes %}
+                            {{ client.name }} {{ client.surname }}
+                        {% endfor %}
+                    </td>
+                    <td><a href="/api/vehicles/edit/{{ vehicle.number_plate }}">Editar</a></td>
+                    <td><a href="/api/vehicles/delete/{{ vehicle.number_plate }}">Eliminar</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="accordion" id="accordionExample">
+            {% for register in vehicle.registers %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading{{ register.cod_follow }}">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ register.cod_follow }}" aria-expanded="true" aria-controls="collapse{{ register.cod_follow }}">
+                        <table class="styled-table">
+                            <thead>
+                                <tr>
+                                    <th>Nº Seguimiento: {{ register.cod_follow }}</th>
+                                    <th>{{ register.statePay() }}</th>
+                                    <th>Tipo de pago: {{ register.statePayment() }}</th>
+                                    <th>Fecha entrada: {{ register.time_register }}</th>
+                                    <th>{{ register.stateFinish() }}</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </button>
+                </h2>
+                <div id="collapse{{ register.cod_follow }}" class="accordion-collapse collapse show" aria-labelledby="heading{{ register.id }}" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <table class="table card-table table-vcenter text-nowrap datatable">
+                            <thead>
+                            <tr>
+                                <th>Descripcion</th>
+                                <th>Productos</th>
+                                <th>Cantidad</th>
+                                <th>Realizado por:</th>
+                            </tr>
+                            </thead>
+                            {% for work in register.worksRegisters %}
+                            <tbody>
+                                <tr>
+                                    <td>{{ work.description }}</td>
+                                    <td>{{ work.product.name }}</td>
+                                    <td>{{ work.quantity }}</td>
+                                    <td>{{ work.worker.name }}</td>
+                                </tr>
+                            </tbody>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

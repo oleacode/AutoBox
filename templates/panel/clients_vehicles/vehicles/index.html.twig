@@ -1,0 +1,43 @@
+{% extends '../../layout_base.html.twig' %}
+{% block title %}Vehículos registrados{% endblock %}
+
+{% block body %}
+<div class="table-responsive">
+    <table class="table card-table table-vcenter text-nowrap datatable">
+        <thead>
+        <tr>
+            <th>Matrícula</th>
+            <th>Kilometraje</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Titular</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for vehicle in vehicles %}
+        <tr>
+            <td>{{ vehicle.number_plate }}</td>
+            <td>{{ vehicle.kms }}</td>
+            <td>{{ vehicle.mark }}</td>
+            <td>{{ vehicle.model }}</td>
+            <td>
+                {% for client in vehicle.clients %}
+                    {{ client.name }} {{ client.surname }}
+                {% endfor %}
+            </td>
+            <td><a href="/api/vehicles/show/{{ vehicle.number_plate }}">Detalle</a></td>
+            <td><a href="/api/vehicles/edit/{{ vehicle.number_plate }}">Editar</a></td>
+            <td><a href="/api/vehicles/delete/{{ vehicle.number_plate }}">Eliminar</a></td>
+
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="/api/vehicles/new"><button type="button" class="btn btn-outline-primary">Nuevo vehículo</button></a>
+
+{% endblock %}
+
+{% block script %}{% endblock %}
