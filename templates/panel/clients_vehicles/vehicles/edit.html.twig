@@ -4,16 +4,16 @@
     <form class="row g-3" action="" method="post">
         <div class="col-md-4">
             <label for="validationDefault01" class="form-label">Matrícula</label>
-            <input type="text" name="number_plate" class="form-control" id="validationDefault01" required>
+            <input value="{{ vehicle.number_plate }}" type="text" name="number_plate" class="form-control" id="validationDefault01" required>
         </div>
         <div class="col-md-4">
             <label for="validationDefault02" class="form-label">Kilometraje</label>
-            <input type="number" name="kms" class="form-control" id="validationDefault02" required>
+            <input value="{{ vehicle.kms }}" type="number" name="kms" class="form-control" id="validationDefault02" required>
         </div>
         <div class="col-md-4">
             <label for="validationDefaultUsername" class="form-label">Marca</label>
             <div class="input-group">
-                <input list="markList" name="mark" class="form-control" id="modelList"  aria-describedby="inputGroupPrepend2" required>
+                <input value="{{ vehicle.mark }}" list="markList" name="mark" class="form-control" id="modelList"  aria-describedby="inputGroupPrepend2" required>
                 <datalist id="markList">
                     <option value="BMW"></option>
                     <option value="SEAT"></option>
@@ -50,14 +50,16 @@
         </div>
         <div class="col-md-3">
             <label for="validationDefault04" class="form-label">Modelo</label>
-            <input name="model" class="form-control" id="modelList"  aria-describedby="inputGroupPrepend2" required>
+            <input value="{{ vehicle.model }}" name="model" class="form-control" id="modelList"  aria-describedby="inputGroupPrepend2" required>
         </div>
         <div class="col-md-3">
             <label for="validationDefault04" class="form-label">Titular</label>
             <select class="form-select" id="clients" name="client" multiple>
-                <option value="{{ vehicle.clients.dni_nif }}" selected>{{ vehicle.clients.name }} {{ vehicles.clients.surname }}</option>
+                {% for client in vehicle.clients %}
+                    <option value="{{ client.dni_nif }}" selected>{{ client.name }} {{ client.surname }}</option>
+                {% endfor %}
                 {% for client in clients %}
-                    <option value="{{ client.dni_nif }}">{{ client.name }} {{ client.surname }}</option>
+                <option value="{{ client.dni_nif }}">{{ client.name }} {{ client.surname }}</option>
                 {% endfor %}
             </select>
         </div>

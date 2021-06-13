@@ -34,7 +34,7 @@ export class ApiController {
     vehicle.mark         = ctx.request.body.mark;
     vehicle.model        = ctx.request.body.model;
 
-    const client           =  await Client.findOne({dni_nif: ctx.request.body.client});
+    const client         =  await Client.findOne({dni_nif: ctx.request.body.client});
     // @ts-ignore
     vehicle.clients      = [client];
 
@@ -54,8 +54,10 @@ export class ApiController {
   @Get('/vehicles/edit/:number_plate')
   async editVehicles(ctx: Context){
     const vehicle = await Vehicle.findOne({number_plate: ctx.request.params.number_plate},{relations:['clients', 'registers', 'registers.worksRegisters', 'registers.worksRegisters.product', 'registers.worksRegisters.worker']})
+    const clients = await Client.find()
       return await render('./templates/panel/clients_vehicles/vehicles/edit.html.twig',{
-      vehicle: vehicle
+      vehicle: vehicle,
+      clients : clients
     })
   }
 
