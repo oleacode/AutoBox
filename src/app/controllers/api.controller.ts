@@ -34,11 +34,12 @@ export class ApiController {
     vehicle.mark         = ctx.request.body.mark;
     vehicle.model        = ctx.request.body.model;
 
-    var clientDniNif     =  await Client.findOne({dni_nif: ctx.request.body.client});
-    vehicle.clients      = clientDniNif;
+    const client           =  await Client.findOne({dni_nif: ctx.request.body.client});
+    // @ts-ignore
+    vehicle.clients      = [client];
 
     await vehicle.save()
-    return new HttpResponseRedirect('./templates/panel/clients_vehicles/vehicles');
+    return new HttpResponseRedirect('/api/vehicles');
   }
 
   @Get('/vehicles/show/:number_plate')
@@ -58,4 +59,12 @@ export class ApiController {
     })
   }
 
+  @Get('/vehicles/delete/:number_plate')
+  async  deleteVehicle(ctx: Context){
+    const vehicleDeleted = await Vehicle.findOne({number_plate: ctx.request.params.number_plate});
+    // @ts-ignore
+    await vehicleDeleted.remove()
+
+    return new HttpResponseRedirect('/api/vehicles');
+  }
 }
