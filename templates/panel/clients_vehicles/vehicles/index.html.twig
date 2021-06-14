@@ -28,15 +28,15 @@
                     {{ client.name }} {{ client.surname }}
                 {% endfor %}
             </td>
-            <td><a href="/api/vehicles/show/{{ vehicle.number_plate }}">Detalle</a></td>
-            <td><a href="/api/vehicles/edit/{{ vehicle.number_plate }}">Editar</a></td>
-            <td><a href="/api/vehicles/delete/{{ vehicle.number_plate }}">Eliminar</a></td>
+            <td><a href="/vehicle/show/{{ vehicle.number_plate }}">Detalle</a></td>
+            <td><a href="/vehicle/edit/{{ vehicle.number_plate }}">Editar</a></td>
+            <td><a href="/vehicle/delete/{{ vehicle.number_plate }}">Eliminar</a></td>
 
         </tr>
         {% endfor %}
         </tbody>
     </table>
-    <a href="/api/vehicles/new"><button type="button" class="btn btn-outline-primary">Nuevo vehículo</button></a>
+    <a href="/vehicle/new"><button type="button" class="btn btn-outline-primary">Nuevo vehículo</button></a>
 
 {% endblock %}
 
