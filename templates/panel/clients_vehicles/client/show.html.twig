@@ -19,28 +19,32 @@
         <table class="table card-table table-vcenter text-nowrap datatable">
             <thead>
                 <tr>
-                    <th>Matrícula</th>
-                    <th>Kilometraje</th>
-                    <th>Marca</th>
-                    <th>Modelo</th>
-                    <th>Titular</th>
+                    <th>Nombre y apellidos</th>
+                    <th>Dni</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Teléfono</th>
+                    <th>Dirección</th>
+                    <th>Vehículos</th>
                     <th>Editar</th>
                     <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>{{ vehicle.number_plate }}</td>
-                    <td>{{ vehicle.kms }}</td>
-                    <td>{{ vehicle.mark }}</td>
-                    <td>{{ vehicle.model }}</td>
+                    <td>{{ client.name }} {{ client.surname }}</td>
+                    <td>{{ client.dni_nif }}</td>
+                    <td>{{ client.email }}</td>
+                    <td>{{ client.phone_number1 }}</td>
+                    <td>{{ client.phone_number2 }}</td>
+                    <td>{{ client.address }}</td>
                     <td>
-                        {% for client in vehicle.clients %}
-                            {{ client.name }} {{ client.surname }}
+                        {% for vehicle in client.vehicles %}
+                            {{ vehicle.number_plate }} {{ vehicle.model }}
                         {% endfor %}
                     </td>
-                    <td><a href="/api/vehicles/edit/{{ vehicle.number_plate }}">Editar</a></td>
-                    <td><a href="/api/vehicles/delete/{{ vehicle.number_plate }}">Eliminar</a></td>
+                    <td><a href="/client/edit/{{ client.dni_nif }}">Editar</a></td>
+                    <td><a href="/client/delete/{{ client.dni_nif }}">Eliminar</a></td>
                 </tr>
             </tbody>
         </table>

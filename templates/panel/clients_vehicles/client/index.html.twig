@@ -1,0 +1,35 @@
+{% extends '../../layout_base.html.twig' %}
+{% block title %}Clientes{% endblock %}
+
+{% block body %}
+    <div class="table-responsive">
+    <table class="table card-table table-vcenter text-nowrap datatable">
+        <thead>
+        <tr>
+            <th>Nombre y apellidos</th>
+            <th></th>
+            <th>email</th>
+            <th>Teléfono</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for client in clients %}
+            <tr>
+                <td>{{ client.name }} {{ client.surname }}</td>
+                <td></td>
+                <td>{{ client.email }}</td>
+                <td>{{ client.phone_number1 }}</td>
+                <td><a href="/client/show/{{ client.dni_nif }}">Detalle</a></td>
+                <td><a href="/client/edit/{{ client.dni_nif }}">Editar</a></td>
+                <td><a href="/client/delete/{{ client.dni_nif }}">Eliminar</a></td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="/vehicle/new"><button type="button" class="btn btn-outline-primary">Nuevo cliente</button></a>
+
+{% endblock %}
