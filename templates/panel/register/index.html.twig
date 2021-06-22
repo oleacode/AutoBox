@@ -1,36 +1,33 @@
-{% extends './layout_base.html.twig' %}
-{% block title %}Clientes{% endblock %}
+{% extends '../layout_base.html.twig' %}
+{% block title %}Facturas{% endblock %}
 
 {% block body %}
     <div class="table-responsive">
     <table class="table card-table table-vcenter text-nowrap datatable">
         <thead>
         <tr>
-            <th>Nombre y apellidos</th>
-            <th></th>
-            <th>email</th>
-            <th>Teléfono</th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>Nº factura</th>
+            <th>Fecha de entrada</th>
+            <th>Fecha de salida</th>
+            <th>Estado</th>
+            <th>Pago</th>
+            <th>Pagado</th>
+            <th>Vehiculo</th>
         </tr>
         </thead>
         <tbody>
-        {% for client in clients %}
+        {% for register in registers %}
             <tr>
-
-                <td>{{ client.name }} {{ client.surname }}</td>
-                <td></td>
-                <td>{{ client.email }}</td>
-                <td>{{ client.phone_number1 }}</td>
-                <td><a href="/client/show/{{ client.dni_nif }}">Detalle</a></td>
-                <td><a href="/client/edit/{{ client.dni_nif }}">Editar</a></td>
-                <td><a href="/client/delete/{{ client.dni_nif }}">Eliminar</a></td>
-
+                <td>{{ register.n_receipt }}</td>
+                <td>{{ register.time_register }}</td>
+                <td>{{ register.time_finished }}</td>
+                <td>{{ register.stateFinish() }}</td>
+                <td>{{ register.statePayment() }}</td>
+                <td>{{ register.statePya() }}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-    <a href="/client/new"><button type="button" class="btn btn-outline-primary">Nuevo cliente</button></a>
+    <a href="/client/new"><button type="button" class="btn btn-outline-primary">Nueva Factura</button></a>
 
 {% endblock %}

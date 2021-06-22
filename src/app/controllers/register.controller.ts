@@ -1,11 +1,14 @@
 import {Context, Get, HttpResponseOK, render} from '@foal/core';
+import {Register} from '../entities';
 
 export class RegisterController {
 
   @Get('/')
   async foo(ctx: Context) {
-    await render ('./templates/panel/register/index.html.twig');
-    return new HttpResponseOK();
+    const registers = await  Register.find();
+    return await render ('./templates/panel/register/index.html.twig',{
+      registers: registers
+    });
   }
 
 }
