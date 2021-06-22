@@ -36,6 +36,7 @@ export class VehicleController {
     await vehicle.save()
     return new HttpResponseRedirect('/api/vehicles');
   }
+
 //ACCEDEMOS A LOS DETALLES DEL VEHICULO
   @Get('/show/:number_plate')
   async showVehicles(ctx: Context){
@@ -53,7 +54,7 @@ export class VehicleController {
     // @ts-ignore
     await vehicleDeleted.remove()
 
-    return new HttpResponseRedirect('/api/vehicles');
+    return new HttpResponseRedirect('/vehicles');
   }
 
   //edit
@@ -71,7 +72,7 @@ export class VehicleController {
     const vehicle = await Vehicle.findOne({number_plate: ctx.request.params.number_plate});
 
     // @ts-ignore
-    vehicle.number_plate = ctx.request.body.number_plate;
+    vehicle.number_plate  = ctx.request.body.number_plate;
     // @ts-ignore
     vehicle?.kms          = ctx.request.body.kms;
     // @ts-ignore
@@ -85,4 +86,6 @@ export class VehicleController {
     await vehicle.save();
     return new HttpResponseRedirect('/vehicle');
   }
+
+
 }

@@ -3,68 +3,42 @@
 {% block body %}
     <form class="row g-3" action="" method="post">
         <div class="col-md-4">
-            <label for="validationDefault01" class="form-label">Matrícula</label>
-            <input value="{{ vehicle.number_plate }}" type="text" name="number_plate" class="form-control" id="validationDefault01" required>
+            <label for="validationDefault01" class="form-label">Nombre</label>
+            <input value="{{ client.name }}" type="text" name="name" class="form-control" id="validationDefault01" required>
         </div>
         <div class="col-md-4">
-            <label for="validationDefault02" class="form-label">Kilometraje</label>
-            <input value="{{ vehicle.kms }}" type="number" name="kms" class="form-control" id="validationDefault02" required>
+            <label for="validationDefault02" class="form-label">Apellidos</label>
+            <input value="{{ client.surname }}" type="text" name="surname" class="form-control" id="validationDefault02" required>
         </div>
         <div class="col-md-4">
-            <label for="validationDefaultUsername" class="form-label">Marca</label>
-            <div class="input-group">
-                <input value="{{ vehicle.mark }}" list="markList" name="mark" class="form-control" id="modelList"  aria-describedby="inputGroupPrepend2" required>
-                <datalist id="markList">
-                    <option value="BMW"></option>
-                    <option value="SEAT"></option>
-                    <option value="SKODA"></option>
-                    <option value="AUDI"></option>
-                    <option value="RENAULT"></option>
-                    <option value="KIA"></option>
-                    <option value="MERCEDES-BENZ"></option>
-                    <option value="LAND ROVER"></option>
-                    <option value="LEXUS"></option>
-                    <option value="MINI"></option>
-                    <option value="NISSAN"></option>
-                    <option value="OPEL"></option>
-                    <option value="MAZDA"></option>
-                    <option value="JEEP"></option>
-                    <option value="ALFA ROMEO"></option>
-                    <option value="LANCIA"></option>
-                    <option value="CINTROEN"></option>
-                    <option value="FORD"></option>
-                    <option value="HONDA"></option>
-                    <option value="DACIA"></option>
-                    <option value="Volkswagen"></option>
-                    <option value="SUBARU"></option>
-                    <option value="SUZUKI"></option>
-                    <option value="VOLVO"></option>
-                    <option value="SMART"></option>
-                    <option value="TOYOTA"></option>
-                    <option value="MITSUBISHI"></option>
-                    <option value="PEUGEOT"></option>
-                    <option value="CHEVROLET"></option>
-                    <option value="SSANGYONG"></option>
-                </datalist>
-            </div>
+            <label for="validationDefaultUsername" class="form-label">Dni/Nif</label>
+            <input value="{{ client.dni_nif }}" type="text" name="dni_nif" class="form-control" id="validationDefault02" required>
         </div>
         <div class="col-md-3">
-            <label for="validationDefault04" class="form-label">Modelo</label>
-            <input value="{{ vehicle.model }}" name="model" class="form-control" id="modelList"  aria-describedby="inputGroupPrepend2" required>
+            <label for="validationDefault04" class="form-label">Email</label>
+            <input value="{{ client.email }}" name="email" type="text" class="form-control" id="modelList"  aria-describedby="inputGroupPrepend2" required>
         </div>
         <div class="col-md-3">
-            <label for="validationDefault04" class="form-label">Titular</label>
-            <select class="form-select" id="clients" name="client" multiple>
-                {% for client in vehicle.clients %}
-                    <option value="{{ client.dni_nif }}" selected>{{ client.name }} {{ client.surname }}</option>
+            <label for="validationDefault04" class="form-label">Teléfono 1</label>
+            <input value="{{ client.phone_number1 }}" name="phone_number1" type="number" class="form-control" id="modelList"  aria-describedby="inputGroupPrepend2" required>
+        </div>
+        <div class="col-md-3">
+            <label for="validationDefault04" class="form-label">Teléfono 2</label>
+            <input value="{{ client.phone_number2 }}" name="phone_number2" type="number" class="form-control" id="modelList"  aria-describedby="inputGroupPrepend2" required>
+        </div>
+        <div class="col-md-3">
+            <label for="validationDefault04" class="form-label">Vehiculos</label>
+            <select class="form-select" id="vehicles" name="vehicle" multiple>
+                {% for vehicle in client.vehicles %}
+                    <option value="{{ vehicle.number_plate }}" selected>{{ vehicle.number_plate }} {{ vehicle.model }} {{ vehicle.mark }}</option>
                 {% endfor %}
-                {% for client in clients %}
-                <option value="{{ client.dni_nif }}">{{ client.name }} {{ client.surname }}</option>
+                {% for vehicle in vehicles %}
+                    <option value="{{ vehicle.number_plate }}">{{ vehicle.number_plate }} {{ vehicle.model }} {{ vehicle.mark }}</option>
                 {% endfor %}
             </select>
         </div>
         <div class="col-12">
-            <button class="btn btn-primary" type="submit">Añadir</button>
+            <button class="btn btn-primary" type="submit">Editar</button>
         </div>
     </form>
 {% endblock %}
