@@ -1,4 +1,4 @@
-import {Context, Get, HttpResponseOK, HttpResponseRedirect, Post, render} from '@foal/core';
+import {Context, Get, HttpResponseOK, HttpResponseRedirect, Post, Session, render} from '@foal/core';
 import {Client, Vehicle} from '../entities';
 
 export class VehicleController {
@@ -6,6 +6,10 @@ export class VehicleController {
   @Get('/')
   async indexVehicles(ctx: Context){
     const vehicles = await Vehicle.find({relations:['clients', 'registers', 'registers.worksRegisters']});
+
+    // @ts-ignore
+    console.log(ctx.session?.get('error'));
+
     return await render('./templates/panel/clients_vehicles/vehicles/index.html.twig', {
       vehicles: vehicles
     })
@@ -19,6 +23,7 @@ export class VehicleController {
       clients: clients
     })
   }
+
 //GUARDAMOS EL VEHÍCULO NUEVO
   @Post('/new')
   async newPostVehicle(ctx: Context){
@@ -34,7 +39,7 @@ export class VehicleController {
     vehicle.clients      = [client];
 
     await vehicle.save()
-    return new HttpResponseRedirect('/api/vehicles');
+    return new HttpResponseRedirect('/vehicle');
   }
 
 //ACCEDEMOS A LOS DETALLES DEL VEHICULO
@@ -51,10 +56,10 @@ export class VehicleController {
   @Get('/delete/:number_plate')
   async  deleteVehicle(ctx: Context){
     const vehicleDeleted = await Vehicle.findOne({number_plate: ctx.request.params.number_plate});
-    // @ts-ignore
-    await vehicleDeleted.remove()
 
-    return new HttpResponseRedirect('/vehicles');
+    // @ts-ignore
+    await vehicleDeleted.remove();
+    return new HttpResponseRedirect('/vehicle');
   }
 
   //edit

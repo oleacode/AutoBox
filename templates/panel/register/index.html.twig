@@ -13,6 +13,7 @@
             <th>Pago</th>
             <th>Pagado</th>
             <th>Vehiculo</th>
+            <th>Opciones</th>
         </tr>
         </thead>
         <tbody>
@@ -23,11 +24,15 @@
                 <td>{{ register.time_finished }}</td>
                 <td>{{ register.stateFinish() }}</td>
                 <td>{{ register.statePayment() }}</td>
-                <td>{{ register.statePya() }}</td>
+                <td>{{ register.statePay() }}</td>
+                {% for vehicle in register.vehicles %}
+                    <td>{{ vehicle.number_plate }}</td>
+                {% endfor %}
+                <td><a href="/register/generate"><img  style="width: 30px; height: 30px" src="https://img-premium.flaticon.com/png/512/471/471132.png?token=exp=1624956616~hmac=070f7af7e01201ddff9015eac7dcd42d" alt="Generar factura"></a></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-    <a href="/client/new"><button type="button" class="btn btn-outline-primary">Nueva Factura</button></a>
+    <a href="/register/new"><button type="button" class="btn btn-outline-primary">Nueva Factura</button></a>
 
 {% endblock %}
